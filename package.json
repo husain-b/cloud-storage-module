@@ -1,0 +1,16 @@
+{
+  "name": "storage-module",
+  "version": "1.0.0",
+  "description": "Cloud Storage Module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/storage": "^6.5.4",
+    "aws-sdk": "^2.1237.0"
+  }
+}
