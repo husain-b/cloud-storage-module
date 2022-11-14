@@ -1,17 +1,18 @@
-const AWS = require('aws-sdk');
+const { S3 } = require('aws-sdk');
+
 module.exports = class S3Storage {
 
     constructor(config){
-        this.s3 = new AWS.S3(config);
+        this.s3 = new S3(config);
     }
 
     uploadFile = (params) => {
-        const { buffer, bucket, filePath } = params;
+        const { buffer, bucket, acl, filePath } = params;
         const s3UploadRequest = this.s3.upload({
             Bucket: bucket,
             Key: `${filePath}`,
             Body : buffer,
-            ACL: "private",
+            ACL: acl,
         });
         
         return new Promise((resolve, reject) => {

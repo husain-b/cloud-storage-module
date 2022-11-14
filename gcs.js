@@ -10,10 +10,10 @@ module.exports = class GCSStorage {
     }
 
     uploadFile = (params) => {
-        const { buffer, filePath, bucket } = params;
+        const { buffer, bucket, acl, filePath, resumable = false } = params;
         return new Promise((resolve, reject) => {
             this.storage.bucket(bucket).file(filePath)
-            .save(buffer)
+            .save(buffer, { resumable, acl })
             .then(_ => resolve({ 
                 Location : `https://storage.cloud.google.com/${bucket}/${filePath}`,
                 Bucket : bucket,
@@ -34,7 +34,7 @@ module.exports = class GCSStorage {
         const params = {
             version: 'v4',
             expires: Date.now() + (1000 * expires),
-            responseDisposition: "attachment",
+            responseDisposition: 'attachment',
         };
 
         if (operation === 'putObject') {
@@ -50,12 +50,12 @@ module.exports = class GCSStorage {
 
             file.exists()
             .then(([fileExists]) => {
-                if(!fileExists && operation === "getObject") throw new Error("Not Found");
+                if(!fileExists && operation === 'getObject') throw new Error('Not Found');
                 return file.getSignedUrl(params);
             })
             .then(([url]) => resolve(url))
             .catch(error => {
-                if(error.message === "Not Found") reject({ statusCode : 404 })
+                if(error.message === 'Not Found') reject({ statusCode : 404 })
                 reject(error);
             });
         });
