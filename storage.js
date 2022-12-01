@@ -33,6 +33,7 @@ class CloudStorage {
 
     uploadFile = (params) => {
         const { bucket = this.bucket, acl = 'private', timeout } = params;
+        params['acl'] = acl;
         params['bucket'] = bucket;
         return new Promise(async (resolve, reject) => {
             try{
