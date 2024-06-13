@@ -10,7 +10,7 @@
   "author": "Mohammed Husain Batatawala",
   "license": "ISC",
   "dependencies": {
-    "@google-cloud/storage": "^6.5.4",
-    "aws-sdk": "^2.1237.0"
+    "@aws-sdk/client-s3": "^3.596.0",
+    "@google-cloud/storage": "^6.5.4"
   }
 }
